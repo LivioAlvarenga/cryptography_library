@@ -1,8 +1,9 @@
-from cryptography.fernet import Fernet
 from typing import Any
 
+from cryptography.fernet import Fernet
 
-def gerar_token(local='cryptography/'):
+
+def gerar_token(local="cryptography/"):
     """Gera um numero de token de criptografia e guarda o mesmo no arquivo
     token.key
 
@@ -11,13 +12,13 @@ def gerar_token(local='cryptography/'):
         Default cryptography/
     """
     token = Fernet.generate_key()
-    arquivo = local + 'token.key'
-    with open(arquivo, 'wb') as token_file:
+    arquivo = local + "token.key"
+    with open(arquivo, "wb") as token_file:
         token_file.write(token)
-        print(f'Gerado token = {token}')
+        print(f"Gerado token = {token}")
 
 
-def read_token(local='cryptography/'):
+def read_token(local="cryptography/"):
     """Ler token de criptografia no arquivo token.key
 
     Args:
@@ -27,8 +28,8 @@ def read_token(local='cryptography/'):
     Returns:
         str: chave token
     """
-    arquivo = local + 'token.key'
-    file = open(arquivo, 'r')
+    arquivo = local + "token.key"
+    file = open(arquivo, "r")
     token = file.read()
     file.close()
     return token
@@ -66,20 +67,39 @@ def decrypt_message(data: Any):
 
 
 # .Testando o código.
-if __name__ == '__main__':
+if __name__ == "__main__":
 
-    mensagem_secreta = 'Hello Word!!!'
+    """mensagem_secreta = "Hello Word!!!"
 
     mensagem_secreta_encrypt = encrypt_message(mensagem_secreta)
 
     mensagem_secreta_decrypt = decrypt_message(mensagem_secreta_encrypt)
 
-    print(f'\nMensagem a ser criptografada = {mensagem_secreta}')
+    print(f"\nMensagem a ser criptografada = {mensagem_secreta}")
 
-    print('-' * 50)
+    print("-" * 50)
 
-    print(f'Mensagem encrypt = {mensagem_secreta_encrypt}')
+    print(f"Mensagem encrypt = {mensagem_secreta_encrypt}")
 
-    print('-' * 50)
+    print("-" * 50)
 
-    print(f'Mensagem decrypt = {mensagem_secreta_decrypt}')
+    print(f"Mensagem decrypt = {mensagem_secreta_decrypt}")"""
+
+    # . Gerar um token de criptografia.
+    """token = Fernet.generate_key()
+    print(f"\n{token = }\n\n{type(token) = }\n")
+
+    # transformando em texto
+    token_txt = token.decode()
+    print(f"\n{token_txt = }\n\n{type(token_txt) = }\n")
+
+    # transformando em bytes
+    token_b = token_txt.encode()
+    print(f"\n{token_b = }\n\n{type(token_b) = }\n")"""
+
+    token = Fernet.generate_key()
+    msg = 1
+    encoded_msg = str(msg).encode()
+    f = Fernet(token)
+    encrypt_msg = f.encrypt(encoded_msg).decode()
+    print(f"\n{msg = }\n\n{encrypt_msg = }\n\n{type(encrypt_msg) = }\n")
